@@ -1,0 +1,5 @@
+node_modules/
+chrome_profile/
+.env
+.idea
+*.iml

@@ -1,0 +1,17 @@
+{
+  "name": "linkedin-ai-responder",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "setup": "node src/_setup_.js",
+    "start": "node src/main.js",
+    "test": "node test/agent.js"
+  },
+  "dependencies": {
+    "dotenv": "latest",
+    "openai": "^4.85.3",
+    "playwright": "^1.50.1",
+    "twilio": "^5.4.5"
+  }
+}
