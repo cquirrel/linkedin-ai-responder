@@ -20,10 +20,11 @@ async function main() {
             break
         }
 
+        console.log("Calling LLM for next message")
         const result = await llmAgent.call(chat_history)
         switch (result.action) {
             case "respond_chat":
-                console.log("Responding to chat.")
+                console.log("=====\n","Responding to chat:\n", result.message, "\n=====")
                 await navigator.respondToChat(result.message);
                 break
             case "send_notification":

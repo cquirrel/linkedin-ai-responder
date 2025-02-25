@@ -54,7 +54,6 @@ class PlaywrightNavigator implements INavigator {
 
     async respondToChat(message: string): Promise<void> {
         await this.page.locator(selectors.REPLY_TEXT_AREA).fill(message);
-
         //await this.page.locator(selectors.REPLY_BUTTON).first().click();
     }
 
