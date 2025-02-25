@@ -31,7 +31,6 @@ class PlaywrightNavigator implements INavigator {
 
     private async getUnreadMessageLocator(unread_message_locator: string): Promise<Locator | null> {
         // search for unread messages
-        console.log("Looking for unread messages.")
         const unreadMessage = this.page.locator(unread_message_locator);
         const firstUnreadMessage = unreadMessage.first()
 
@@ -54,11 +53,13 @@ class PlaywrightNavigator implements INavigator {
     }
 
     async respondToChat(message: string): Promise<void> {
-        console.log('Filling the reply textarea.');
         await this.page.locator(selectors.REPLY_TEXT_AREA).fill(message);
 
-        console.log('Clicking the send button.');
-        await this.page.locator(selectors.REPLY_BUTTON).first().click();
+        //await this.page.locator(selectors.REPLY_BUTTON).first().click();
+    }
+
+    async closeSession() {
+        await this.browser.close()
     }
 }
 
