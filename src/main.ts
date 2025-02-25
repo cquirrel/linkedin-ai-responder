@@ -1,51 +1,67 @@
 import 'dotenv/config'
-import {agent_call} from "./agent.js";
-import {get_browser, close_browser} from "./browser.js";
-import {send_notification} from "./notifier.js";
+import {sendNotification} from "./notification/notifier.js";
+import {getNavigator} from "./navigator/factory";
+import {readFileSync} from "fs";
+import {getLLMAgent} from "./agent/factory";
+
+function load_system_prompt() {
+    try {
+        return readFileSync("system_prompt.txt", 'utf8');
+    } catch (err) {
+        console.error('Error reading the file:', err);
+        process.exit(1)
+    }
+}
+
+function getSystemPrompt() {
+    if (!process.env.JOB_OFFER_VALUE_IN_EUROS || !process.env.JOB_OFFER_VALUE_IN_EUROS) {
+        console.error("Missing environment variables")
+        process.exit(1)
+    }
+
+    return load_system_prompt()
+        .replace("JOB_OFFER_VALUE_IN_EUROS", process.env.JOB_OFFER_VALUE_IN_EUROS)
+        .replace("JOB_OFFER_VALUE_IN_EUROS_K", process.env.JOB_OFFER_VALUE_IN_EUROS);
+}
 
 async function main() {
-    const browser = await get_browser()
-    const page = await browser.newPage();
+    const messages_url = 'https://www.linkedin.com/messaging'
+    const navigator = getNavigator("playwright")
+    await navigator.init(messages_url)
+
+    const system_message = getSystemPrompt();
+    const llmAgent = getLLMAgent("openai")
+    await llmAgent.init(system_message)
 
     while (true) {
-        await page.goto('https://www.linkedin.com/messaging');
-
-        // search for unread messages
-        console.log("Looking for unread messages.")
-        const unreadMessage = page.locator('[aria-label*="unread message"]');
-        const firstUnreadMessage = unreadMessage.first()
-        if (!await firstUnreadMessage.isVisible()) {
-            console.log("No unread messages found.");
-            await close_browser(browser)
+        const chat_history = await navigator.getMostRecentUnreadChatHistory()
+        if (!chat_history || chat_history.length === 0) {
+            console.log("No unread messages found")
             break
         }
 
-        await firstUnreadMessage.click();
+        const result = await llmAgent.call(chat_history)
 
-        console.log("Looking for messages.")
-        const chat_history = await page.locator('.message-body').allTextContents();
-
-        const result = await agent_call(chat_history)
-
-        if (result.action === "function_call" && result.function_calls.length <= 0) {
-            console.error("No function_calls found.");
-            process.exit(1)
+        if (result.action === "message") {
+            await navigator.respondToChat(result.message)
         }
+        else if (result.action === "function_call") {
+            if (result.functionCalls.length <= 0) {
+                console.error("No function_calls found.");
+                process.exit(1)
+            }
 
-        if (result.action === "function_call" && result.function_calls.length > 0 && result.function_calls[0].name === "book_meeting") {
-            console.log("Sending notification.");
-            await send_notification(JSON.stringify(""))
-            continue
+            if (result.functionCalls[0].name === "book_meeting") {
+                await sendNotification("New interview!")
+            }
         }
-
-        if (result.action === "respond") {
-            console.log('Filling the reply textarea.');
-            await page.locator('#messaging-reply').fill(result.message);
-
-            console.log('Clicking the send button.');
-            await page.locator('.message-send').first().click();
+        else {
+            throw new Error("Unsupported operation")
         }
     }
 }
 
-(async () => { await main(); console.log("Exiting."); })()
+(async () => {
+    await main();
+    console.log("Exiting.");
+})()
