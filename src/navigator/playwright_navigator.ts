@@ -36,7 +36,6 @@ class PlaywrightNavigator implements INavigator {
         const firstUnreadMessage = unreadMessage.first()
 
         if (await firstUnreadMessage.count() <= 0) {
-            console.log("No unread messages found.");
             await this.closeNavigator()
             return null
         }

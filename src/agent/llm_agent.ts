@@ -4,12 +4,12 @@ interface LLMAgent {
 }
 
 interface LLMAgentResult {
-    action: "message" | "function_call"
+    action: "respond_chat" | "send_notification"
     message: string
-    functionCalls: {
-        name: string,
-        arguments: string // must be json parsed
-    }[]
+    interview_params?: {
+        recruiter_name?: string,
+        recruiter_hiring_company?: string
+    }
 }
 
 export {LLMAgent, LLMAgentResult}

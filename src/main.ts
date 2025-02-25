@@ -36,27 +36,18 @@ async function main() {
     while (true) {
         const chat_history = await navigator.getMostRecentUnreadChatHistory()
         if (!chat_history || chat_history.length === 0) {
-            console.log("No unread messages found")
+            console.log("No unread messages found.")
             break
         }
 
         const result = await llmAgent.call(chat_history)
-
-        if (result.action === "message") {
-            await navigator.respondToChat(result.message)
-        }
-        else if (result.action === "function_call") {
-            if (result.functionCalls.length <= 0) {
-                console.error("No function_calls found.");
-                process.exit(1)
-            }
-
-            if (result.functionCalls[0].name === "book_meeting") {
-                await sendNotification("New interview!")
-            }
-        }
-        else {
-            throw new Error("Unsupported operation")
+        switch (result.action) {
+            case "respond_chat":
+                await navigator.respondToChat(result.message); break
+            case "send_notification":
+                await sendNotification("New interview!"); break
+            default:
+                throw new Error("Unsupported operation")
         }
     }
 }

@@ -55,17 +55,15 @@ class OpenAIAgent implements LLMAgent {
         const choice = response.choices[0]
         switch (choice.finish_reason) {
             case "stop":
-                return {action: "message", message: choice.message.content, functionCalls: []}
+                return {
+                    action: "respond_chat",
+                    message: choice.message.content
+                }
             case "tool_calls":
                 return {
-                    action: "function_call",
+                    action: "send_notification",
                     message: "",
-                    functionCalls: choice.message.tool_calls.map(t => {
-                        return {
-                            name: t.function.name,
-                            arguments: t.function.arguments
-                        }
-                    })
+                    interview_params: {} //TODO
                 }
             default:
                 console.error("No stop/tool_calls finish reason")
