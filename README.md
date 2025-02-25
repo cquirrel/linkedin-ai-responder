@@ -47,7 +47,7 @@ which will be created in the root of the project's folder. You can close the bro
 npm run setup
 ```
 
-### Running
+## Running
 
 Let the magic happen. The script will search for unread messages and use the configured LLM to generate and send the next
 message in the chat conversation. If the recruiter is trying to book an interview/meeting online the script will call
