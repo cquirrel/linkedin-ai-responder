@@ -1,5 +1,6 @@
 node_modules/
 chrome_profile/
+dist/
 .env
 .idea
 *.iml
