@@ -1,5 +1,5 @@
 import {INavigator} from "./navigator";
-import {PlaywrightNavigator} from "./playwright_navigator";
+import {PlaywrightNavigator} from "./impl/playwright_navigator";
 
 function getNavigator(type: "playwright" | "browser"): INavigator {
     switch (type) {

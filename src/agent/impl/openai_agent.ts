@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import {LLMAgent, LLMAgentResult} from "./llm_agent";
+import {LLMAgent, LLMAgentResult} from "../llm_agent";
 
 class OpenAIAgent implements LLMAgent {
     private openai: OpenAI;

@@ -1,5 +1,5 @@
 import {LLMAgent} from "./llm_agent";
-import {OpenAIAgent} from "./openai_agent";
+import {OpenAIAgent} from "./impl/openai_agent";
 import {readFileSync} from "fs";
 
 function getLLMAgent(type: "openai"): LLMAgent {

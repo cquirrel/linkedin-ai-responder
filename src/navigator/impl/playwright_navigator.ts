@@ -1,6 +1,6 @@
 import {BrowserContext, chromium, Locator, Page} from "playwright";
-import {INavigator} from "./navigator";
-import {selectors} from "./selectors";
+import {INavigator} from "../navigator";
+import {selectors} from "../selectors";
 
 const userDataDir = './chrome_profile'; // Change this to your Chrome profile path
 const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'; // macOS Chrome path
@@ -14,7 +14,7 @@ class PlaywrightNavigator implements INavigator {
         this.browser = await chromium.launchPersistentContext(userDataDir, {
             headless: false,
             executablePath: chromePath, // Use system-installed Chrome
-            viewport: { width: 500, height: 812 }, // Mobile-like viewport
+            viewport: {width: 500, height: 812}, // Mobile-like viewport
             userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.77 Mobile Safari/537.36'
         })
         this.page = await this.browser.newPage()
