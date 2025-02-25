@@ -29,7 +29,7 @@ git clone https://github.com/your-username/linkedin-ai-responder.git
 
 ```bash
 cd linkedin-ai-responder
-npm run install
+npm install
 ```
 
 ## Setup
