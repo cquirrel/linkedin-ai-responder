@@ -3,16 +3,19 @@
   "version": "1.0.0",
   "main": "src/main.ts",
   "scripts": {
-    "build": "tsc",
-    "setup": "npm run build && node src/setup.ts",
-    "start": "npm run build && node dist/main.js",
-    "test": "node test/agent.js"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
-  "dependencies": {
-    "dotenv": "latest",
-    "openai": "^4.85.3",
-    "playwright": "^1.50.1",
-    "twilio": "^5.4.5",
+  "type": "module",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/chrome": "^0.0.306",
+    "copy-webpack-plugin": "^12.0.2",
+    "rollup": "^4.34.8",
+    "rollup-plugin-chrome-extension": "^3.6.12",
     "typescript": "^5.7.3"
   }
 }

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Popup</title>
+
+    <style>
+        body {
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        #controls > div:first-child {
+            flex: 1;
+        }
+
+        #spinner {
+            width: 15px;
+            height: 15px;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            border-top: 4px solid #333;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        #result-container > textarea {
+            height: 100%;
+            white-space: pre-wrap;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Disabled button style */
+        button:disabled {
+            background-color: #d3d3d3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="result-container">
+    <div class="controls">
+        <div>
+            <button id="run">Run</button>
+            <button id="copy">Copy</button>
+            <button id="show-settings">Settings</button>
+        </div>
+        <div>
+            <div id="spinner"></div>
+        </div>
+    </div>
+    <label for="llm-result">Result</label>
+    <textarea id="llm-result"></textarea>
+</div>
+<div class="container" id="settings-container">
+    <div class="controls">
+        <button id="save-settings">Save</button>
+    </div>
+    <label style="display: flex; flex-direction: column">
+        OpenAI API Key
+        <input id="openai-key" type="password">
+    </label>
+    <label style="flex: 1; display: flex; flex-direction: column">
+        System Prompt
+        <textarea style="height: 100%" id="system-prompt"></textarea>
+    </label>
+</div>
+<script src="./popup.ts"></script>
+</body>
+</html>

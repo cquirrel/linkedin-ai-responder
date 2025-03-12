@@ -1,6 +1,5 @@
 interface LLMAgent {
-    init(systemPrompt: string): Promise<void>;
-    call(chatHistoryMessages: string[]): Promise<LLMAgentResult>
+    call(chatHistoryMessages: string[]): Promise<String>
 }
 
 interface LLMAgentResult {

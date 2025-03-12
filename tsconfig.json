@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es6",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es6",
@@ -17,6 +17,6 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ]
 }
