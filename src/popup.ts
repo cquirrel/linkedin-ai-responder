@@ -23,7 +23,7 @@ function loadSettings(callback: (settings: Record<string, any>) => void) {
 
 function initSettings() {
     const settingsButton = document.getElementById("show-settings")
-    const closeSettingsButton = document.getElementById("save-settings")
+    const closeSettingsButton = document.getElementById("close-settings")
     const settingsContainer = document.getElementById("settings-container")
     const resultContainer = document.getElementById("result-container")
 
