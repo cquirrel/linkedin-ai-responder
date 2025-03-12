@@ -1,6 +1,6 @@
 # LinkedIn AI Responder
 
-This project is a **LinkedIn AI Responder** built using **TypeScript**. It automatically creates AI-generated responses, specifically designed to engage with recruiters. If a recruiter attempts to book a meeting or interview.
+This project is a **LinkedIn AI Responder** Chrome extension built using **TypeScript**. It automatically creates AI-generated responses, specifically designed to engage with recruiters. If a recruiter attempts to book a meeting or interview.
 
 ## Features
 
