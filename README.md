@@ -24,6 +24,18 @@ Before running the project, make sure you have the following installed:
 git clone --depth 1 https://github.com/cquirrel/linkedin-ai-responder.git
 ```
 
+### 2. Build the extension
+
+```bash
+npm run build
+```
+
+### 3. Develop
+
+```bash
+npm run watch
+```
+
 ## Loading the Chrome Extension
 
 To use the extension, you'll need to load it into Chrome. Follow these steps:
