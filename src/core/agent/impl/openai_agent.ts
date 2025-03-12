@@ -1,4 +1,4 @@
-import {LLMAgent, LLMAgentResult} from "../llm_agent";
+import {LLMAgent} from "../llm_agent";
 
 class OpenAIAgent implements LLMAgent {
 
